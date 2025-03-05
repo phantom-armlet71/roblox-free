@@ -16,6 +16,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        color: #fff;
     }
     #play-button {
         padding: 15px 30px;
@@ -31,25 +32,32 @@
     #play-button:hover {
         background-color: #ff6363;
     }
-    #iframe-container {
-        width: 80%;
-        height: 600px;
+    #loading-screen {
         display: none;
-        border: 5px solid #ff4747;
+        text-align: center;
+    }
+    #loading-text {
+        margin-top: 20px;
+        font-size: 20px;
+        animation: blink 1s infinite;
+    }
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    #progress-bar {
+        width: 300px;
+        height: 20px;
+        background-color: #333;
         border-radius: 10px;
         overflow: hidden;
-        background-color: #fff;
-    }
-    iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-    #error-message {
-        display: none;
-        color: #fff;
-        text-align: center;
         margin-top: 20px;
+    }
+    #progress {
+        width: 0;
+        height: 100%;
+        background-color: #ff4747;
+        transition: width 0.5s;
     }
 </style>
 </head>
@@ -57,35 +65,32 @@
 
 <button id="play-button">Play Roblox</button>
 
-<div id="iframe-container">
-    <iframe id="roblox-frame" src="" allowfullscreen></iframe>
-</div>
-
-<div id="error-message">
-    🚫 Roblox can't be embedded directly due to security settings.<br>
-    👉 Click <a href="https://www.roblox.com/" target="_blank" style="color: #ff4747; text-decoration: none;">here</a> to open it in a new tab!
+<div id="loading-screen">
+    <h2>Loading Roblox...</h2>
+    <div id="progress-bar">
+        <div id="progress"></div>
+    </div>
+    <div id="loading-text">Please wait...</div>
 </div>
 
 <script>
     const playButton = document.getElementById('play-button');
-    const iframeContainer = document.getElementById('iframe-container');
-    const robloxFrame = document.getElementById('roblox-frame');
-    const errorMessage = document.getElementById('error-message');
+    const loadingScreen = document.getElementById('loading-screen');
+    const progressBar = document.getElementById('progress');
 
     playButton.addEventListener('click', () => {
-        try {
-            robloxFrame.src = "https://www.roblox.com/";
-            iframeContainer.style.display = 'block';
-            errorMessage.style.display = 'none';
-        } catch (error) {
-            iframeContainer.style.display = 'none';
-            errorMessage.style.display = 'block';
-        }
-    });
+        playButton.style.display = 'none';
+        loadingScreen.style.display = 'block';
 
-    robloxFrame.addEventListener('error', () => {
-        iframeContainer.style.display = 'none';
-        errorMessage.style.display = 'block';
+        let progress = 0;
+        const loadingInterval = setInterval(() => {
+            progress += 10;
+            progressBar.style.width = progress + '%';
+            if (progress >= 100) {
+                clearInterval(loadingInterval);
+                window.location.href = "https://www.roblox.com/"; // Redirect to Roblox
+            }
+        }, 500);
     });
 </script>
 
