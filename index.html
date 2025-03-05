@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play Roblox</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1c1c1c;
+        font-family: 'Roboto', sans-serif;
+    }
+    #play-button {
+        padding: 15px 30px;
+        background-color: #ff4747;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    #play-button:hover {
+        background-color: #ff6363;
+    }
+    #popup-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    #popup-message {
+        color: #fff;
+        margin-bottom: 20px;
+        font-size: 20px;
+        text-align: center;
+    }
+    #open-link {
+        padding: 10px 20px;
+        background-color: #ff4747;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 18px;
+    }
+    #open-link:hover {
+        background-color: #ff6363;
+    }
+    #close-popup {
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    #close-popup:hover {
+        background-color: #555;
+    }
+</style>
+</head>
+<body>
+
+<button id="play-button">Play</button>
+
+<div id="popup-container">
+    <div id="popup-message">Roblox can't be embedded directly due to security settings.<br> Click the button below to open it in a new tab!</div>
+    <a id="open-link" href="https://www.roblox.com/" target="_blank" rel="noopener noreferrer">Open Roblox</a>
+    <button id="close-popup">Close</button>
+</div>
+
+<script>
+    const playButton = document.getElementById('play-button');
+    const popupContainer = document.getElementById('popup-container');
+    const closePopup = document.getElementById('close-popup');
+
+    playButton.addEventListener('click', () => {
+        popupContainer.style.display = 'flex';
+    });
+
+    closePopup.addEventListener('click', () => {
+        popupContainer.style.display = 'none';
+    });
+</script>
+
+</body>
+</html>
